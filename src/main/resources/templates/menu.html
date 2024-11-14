@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div th:fragment="menu" class="sidenav">
+    <div class="logo-section">
+        <a th:href="@{/}" style="padding: 0; margin-left: 12px;">
+            <img th:src="@{/logo.png}" alt="Company Logo" />
+        </a>
+        <a th:href="@{/}" class="website-link" style="font-size: 12px; margin-left: 0; padding-top: 0;">www.ezeontech.com</a>
+    </div>
+
+    <div class="menu-section">
+        <div class="mheader">Enquiry</div>
+        <a th:href="@{/}">Add Enquiry</a>
+        <a th:href="@{/enq-list}">List Enquiry</a>
+
+        <div class="mheader">Institute</div>
+        <a th:href="@{/institute-form}">Add Institute</a>
+        <a th:href="@{/institute-list}">Institute List</a>
+
+        <div class="mheader">Masters</div>
+        <a th:href="@{/sources}">Enquiry Source</a>
+        <a th:href="@{/courses}">Courses</a>
+    </div>
+</div>

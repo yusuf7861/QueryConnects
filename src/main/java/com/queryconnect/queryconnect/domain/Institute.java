@@ -18,11 +18,11 @@ public class Institute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "instituteId", nullable = false)
-    private Long id;
+    private Long instituteId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "contactId")
+    @JoinColumn(name = "contactId", referencedColumnName = "contactId")
     private Contact contact;
 
     @Column(name = "name", length = 200)

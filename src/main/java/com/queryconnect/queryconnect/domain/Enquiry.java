@@ -50,7 +50,7 @@ public class Enquiry {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "enquirySourceId")
-    private Enquirysource enquirySource;
+    private EnquirySource enquirySource;
 
     @OneToMany(mappedBy = "enquiry")
     private List<Enquirycourse> enquirycourses = new ArrayList<>();

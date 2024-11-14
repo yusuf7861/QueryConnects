@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class QueryConnectsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(QueryConnectsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(QueryConnectsApplication.class, args);
+    }
 
 }

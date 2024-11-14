@@ -1,28 +1,28 @@
 package com.queryconnect.queryconnect.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "enquirysource")
-public class Enquirysource {
+@Table(name = "enquirySource")
+public class EnquirySource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "enquirySourceId", nullable = false)
-    private Long id;
+    @Column(nullable = false)
+    private Long enquirySourceId;
 
     @Column(name = "name", length = 100)
     private String name;
 
-    @OneToMany(mappedBy = "enquirySource")
+//    @OneToMany(mappedBy = "enquirySource")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Transient
     private List<Enquiry> enquiries = new ArrayList<>();
-
 }
