@@ -18,8 +18,8 @@ import java.util.Set;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "courseId", nullable = false)
-    private Long id;
+    @Column(name = "course_id", nullable = false)
+    private Long courseId;
 
     @Column(name = "name", length = 100)
     private String name;
@@ -29,7 +29,7 @@ public class Course {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "instituteId")
+    @JoinColumn(name = "institute_id")
     private Institute institute;
 
     @OneToMany(mappedBy = "course")

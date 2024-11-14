@@ -1,74 +1,84 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="h-full bg-gray-100">
 <head>
     <title>Courses</title>
     <meta charset="UTF-8">
-    <link th:href="@{/main.css}" type="text/css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/output.css}" type="text/css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <script th:src="@{/jquery-3.4.1.min.js}"></script>
 </head>
-<body>
+<body class="h-full">
+<!-- Wrapper for sidebar and main content -->
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div th:insert="~{menu}" class="flex-none"></div>
 
-<div th:insert="menu"></div>
+    <!-- Main content wrapper -->
+    <div class="flex-1 ml-64"> <!-- ml-64 matches sidebar width -->
+        <div class="p-8">
+            <!-- Header -->
+            <div th:insert="~{header}" class="mb-6"></div>
 
-<div class="main">
-    <div th:insert="header"></div>
+            <!-- Form Section -->
+            <form th:action="@{/save-course}" th:object="${cmd}" class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-700 mb-4">Courses</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Institute</label>
+                            <select th:field="*{institute.instituteId}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                <option th:each="i : ${instituteList}" th:value="${i.instituteId}" th:text="${i.name}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Course Name</label>
+                            <input type="text" th:field="*{name}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                            <input type="hidden" th:field="*{courseId}" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Fees</label>
+                            <input type="text" th:field="*{fees}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-200">Save</button>
+                    </div>
+                </div>
+            </form>
 
-    <form th:action="@{/save-course}" th:object="${cmd}">
-        <table border="1" width="90%" align="center" cellpadding="5">
-            <tr>
-                <td class="fheading" colspan="4">Courses</td>
-            </tr>
-            <tr>
-                <td>Institute</td>
-                <td colspan="3">
-                    <select th:field="*{institute.instituteId}">
-                        <option th:each="i : ${instituteList}" th:value="${i.instituteId}" th:text="${i.name}">
-                        </option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Course Name</td>
-                <td>
-                    <input type="text" th:field="*{name}" />
-                    <input type="hidden" th:field="*{courseId}" />
-                </td>
-                <td >Fees</td>
-                <td>
-                    <input type="text" th:field="*{fees}" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <button>Save</button>
-                </td>
-            </tr>
-        </table>
-    </form>
-    <br/>
-    <table border="1" width="90%" align="center" cellpadding="5">
-        <tr>
-            <th>SR</th>
-            <th>ID</th>
-            <th>COURSE</th>
-            <th>FEES</th>
-            <th>INSTITUTE</th>
-            <th>ACTION</th>
-        </tr>
-        <tr th:each="c,itr: ${courseList}">
-            <td th:text="${itr.count}">SR</td>
-            <td th:text="${c.courseId}">ID</td>
-            <td th:text="${c.name}">COURSE</td>
-            <td th:text="${c.fees}">FEES</td>
-            <td th:text="${c.instituteName}">INSTITUTE</td>
-            <td> <a th:href="@{'/course-edit/'+${c.courseId}}">Edit</a> | <a th:href="@{'/course-delete/'+${c.courseId}}">Delete</a></td>
-        </tr>
-    </table>
+            <!-- Table Section -->
+            <div class="mt-8">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SR</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">COURSE</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">FEES</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">INSTITUTE</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tr th:each="c,itr: ${courseList}">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${itr.count}">SR</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${c.courseId}">ID</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" th:text="${c.name}">COURSE</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${c.fees}">FEES</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${c.institute.name}">INSTITUTE</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
+                                <a th:href="@{'/course-edit/'+${c.courseId}}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                <a th:href="@{'/course-delete/'+${c.courseId}}" class="text-red-600 hover:text-red-900">Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

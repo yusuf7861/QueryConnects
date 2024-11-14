@@ -4,11 +4,12 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title th:text="${dataMap.name +'- Enquiry Detail'}"></title>
     <meta charset="UTF-8">
     <link th:href="@{/main.css}" type="text/css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <script th:src="@{/jquery-3.4.1.min.js}"></script>
     <script>
         function openForm(enquiryId) {
@@ -25,12 +26,17 @@ and open the template in the editor.
         }
     </script>
 </head>
-<body>
+<body class="h-full">
+<!-- Wrapper for sidebar and main content -->
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div th:insert="~{menu}" class="flex-none"></div>
 
-<div th:insert="menu"></div>
-
-<div class="main">
-    <div th:insert="header"></div>
+    <!-- Main content wrapper -->
+    <div class="flex-1 ml-64"> <!-- ml-64 matches sidebar width -->
+        <div class="p-8">
+            <!-- Header -->
+            <div th:insert="~{header}" class="mb-6"></div>
 
     <table border="1" width="90%" align="center" cellpadding="5">
         <tr>

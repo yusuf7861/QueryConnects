@@ -17,12 +17,12 @@ import java.util.List;
 public class Institute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "instituteId", nullable = false)
+    @Column(name = "institute_id", nullable = false)
     private Long instituteId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "contactId", referencedColumnName = "contactId")
+    @JoinColumn(name = "contact_id", referencedColumnName = "contact_id")
     private Contact contact;
 
     @Column(name = "name", length = 200)

@@ -1,74 +1,96 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Enquiry Form</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/main.css" type="text/css" />
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="/scripts/enquiry-form.js"></script> <!-- Adjust the path as needed -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div th:insert="~{menu :: menu}"></div>
-<div class="main">
-    <div th:insert="~{header :: header}" class="header"> <!-- Assuming you have a header, replace the 'th:replace' with actual HTML -->
-        <!-- Header content here -->
+<body class="h-full">
+<!-- Wrapper for sidebar and main content -->
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div th:insert="~{menu}" class="flex-none"></div>
+
+    <!-- Main content wrapper -->
+    <div class="flex-1 ml-64"> <!-- ml-64 matches sidebar width -->
+        <div class="p-8">
+            <!-- Header -->
+            <div th:insert="~{header}" class="mb-6"></div>
+            <form th:action="@{/save-enquiry}" th:object="${cmd}">
+                <table border="1" width="90%" align="center" cellpadding="5">
+                    <tr>
+                        <td class="fheading" colspan="4">Enquiry Form</td>
+                    </tr>
+                    <tr>
+                        <td>Institute</td>
+                        <td colspan="3" valign="center">
+                            <select th:field="*{enquiry.institute}" class="select select-info w-full max-w-xs">
+                                <option value="Select Institute" disabled selected>Select language</option>
+                                <option th:each="i : ${instituteList}" th:value="${i.instituteId}" th:text="${i.name}"></option>
+                            </select>
+
+
+                            <a class="txt_small" th:href="@{/institute-form}">
+                                Add New
+                            </a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>
+                            <input type="text" th:field="*{enquiry.contact.name}" />
+                        </td>
+                        <td>Phone</td>
+                        <td><input type="text" th:field="*{enquiry.contact.phone}" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="text" th:field="*{enquiry.contact.email}" /></td>
+                        <td>Address</td>
+                        <td>
+                            <textarea placeholder="permanent address" title="(permanent address)" cols="40" rows="3" th:field="*{enquiry.contact.permanentAddress.detail}" ></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Courses</td>
+                        <td colspan="3" id="id_courses">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fees Commitment</td>
+                        <td>
+                            <input type="text" th:field="*{enquiry.committedFees}"  id="id_fees"/>
+                        </td>
+                        <td>Source</td>
+                        <td>
+                            <select th:field="*{enquiry.enquirySource.enquirySourceId}">
+                                <option th:each="s : ${sourceList}" th:value="${s.enquirySourceId}" th:text="${s.name}">
+                                </option>
+                            </select>
+                            <a class="txt_small" th:href="@{/sources}">
+                                Add New
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Remark</td>
+                        <td colspan="3" >
+                            <textarea placeholder="additional detail" title="additional info - if any" cols="60" rows="3" th:field="*{enquiry.remark}" id="id_remark"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center">
+                            <button class="btn btn-active">Save</button>
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
     </div>
-    <form action="/save-enquiry" method="post">
-        <table style="border: 1px; width: 90%; align-items: center; mso-cellspacing: 5px;">
-            <tr>
-                <td class="fheading" colspan="4">Enquiry Form</td>
-            </tr>
-            <tr>
-                <td>Institute</td>
-                <td colspan="3">
-                    <select id="id_instId" name="instituteId">
-                        <option value="" disabled selected>Select an institute</option>
-                        <!-- Hardcode options as placeholders -->
-                        <option value="1">Institute 1</option>
-                        <option value="2">Institute 2</option>
-                    </select>
-                    <a class="txt_small" href="/institute-form">Add New</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td><input type="text" name="contactName" id="contactName" /></td>
-                <td>Phone</td>
-                <td><input type="text" name="contactPhone" id="contactPhone" /></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><input type="text" name="contactEmail" id="contactEmail" /></td>
-                <td>Address</td>
-                <td><textarea placeholder="permanent address" title="(permanent address)" cols="40" rows="3" name="permanentAddress"></textarea></td>
-            </tr>
-            <tr>
-                <td>Courses</td>
-                <td colspan="3" id="id_courses"></td>
-            </tr>
-            <tr>
-                <td>Fees Commitment</td>
-                <td><input type="text" name="committedFees" id="id_fees" /></td>
-                <td>Source</td>
-                <td>
-                    <select name="enquirySourceId">
-                        <option value="" disabled selected>Select a source</option>
-                        <!-- Hardcode options as placeholders -->
-                        <option value="1">Source 1</option>
-                        <option value="2">Source 2</option>
-                    </select>
-                    <a class="txt_small" href="/sources">Add New</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Remark</td>
-                <td colspan="3"><textarea placeholder="additional detail" title="additional info - if any" cols="60" rows="3" name="remark" id="id_remark"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="4" align="center"><button type="submit" id="id_btn_save">Save</button></td>
-            </tr>
-        </table>
-    </form>
 </div>
 </body>
 </html>

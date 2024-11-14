@@ -7,9 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -18,7 +16,7 @@ import java.util.Set;
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contactId", nullable = false)
+    @Column(name = "contact_id", nullable = false)
     private Long id;
 
     @Column(name = "name", length = 45)
@@ -32,12 +30,12 @@ public class Contact {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "localAddress")
+    @JoinColumn(name = "local_address")
     private Address localAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "permanentAddress")
+    @JoinColumn(name = "permanent_Address")
     private Address permanentAddress;
 
     @OneToMany(mappedBy = "contact")

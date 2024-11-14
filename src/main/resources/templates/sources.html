@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <title>Enquiry Source</title>
   <meta charset="UTF-8">
   <link th:href="@{/main.css}" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <script th:src="@{/jquery-3.4.1.min.js}"></script>
 </head>
-<body>
+<body class="h-full">
+<!-- Wrapper for sidebar and main content -->
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <div th:insert="~{menu}" class="flex-none"></div>
 
-<div th:insert="~{menu :: menu}"></div>
-
-<div class="main">
-  <div th:insert="~{header :: header}"></div>
+  <!-- Main content wrapper -->
+  <div class="flex-1 ml-64"> <!-- ml-64 matches sidebar width -->
+    <div class="p-8">
+      <!-- Header -->
+      <div th:insert="~{header}" class="mb-6"></div>
 
   <form th:action="@{/save-enquiry-source}" th:object="${cmd}">
     <table class="form-table" align="center">
