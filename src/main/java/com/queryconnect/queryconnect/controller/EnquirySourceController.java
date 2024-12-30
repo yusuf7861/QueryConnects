@@ -52,10 +52,10 @@ public class EnquirySourceController {
         return enquirysourceRepository.findAll();
     }
 
-    @GetMapping("enq-list")
-    public String enquiryList(@RequestParam(required = false) Long instId, Model model)
-    {
-        model.addAttribute("enquiryList", enquirysourceRepository.getEnquiryDTOList(instId));
-        return "enq-list";
-    }
+//    @GetMapping("enq-list")
+//    public String enquiryList(@RequestParam(required = false) Long instId, Model model)
+//    {
+//        model.addAttribute("enquiryList", enquirysourceRepository.getEnquiryDTOList(instId));
+//        return "enq-list";
+//    }
 }

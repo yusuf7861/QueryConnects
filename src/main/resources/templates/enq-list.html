@@ -4,29 +4,31 @@
 <head>
     <title>Enquiry List</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script th:src="@{/jquery-3.4.1.min.js}"></script>
     <script>
-        var courses;
-        $(document).ready(function () {
-            $("#id_instId").change(function () {
-                var instId = $("#id_instId").val();
-                //console.log(instId);
-                window.location = 'enq-list?instId=' + instId;
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("id_instId").addEventListener("change", function () {
+                var instId = this.value; // get the selected value from the dropdown
+                window.location = 'enq-list?instId=' + instId; // redirect to the URL with the query parameter of the selected item.
             });
         });
-        function openForm(enquiryId) {
-            $("#id_enquiryId").val(enquiryId);
-            $('#followupForm').css("display", "block");
-            $('#followupForm').css('left', event.pageX);
-            $('#followupForm').css('top', event.pageY);
-            $('#followupForm').css('display', 'inline');
-            $("#followupForm").css("position", "absolute");
+
+        function openForm(enquiryId, event) {
+            document.getElementById("id_enquiryId").value = enquiryId;
+
+            var followupForm = document.getElementById("followupForm");
+            followupForm.style.display = "inline";
+            followupForm.style.position = "absolute";
+            followupForm.style.left = event.pageX + "px";
+            followupForm.style.top = event.pageY + "px";
         }
 
         function closeForm() {
-            $('#followupForm').css("display", "none");
+            var followupForm = document.getElementById("followupForm");
+            followupForm.style.display = "none";
         }
+
     </script>
 </head>
 <body class="h-full">
@@ -41,6 +43,7 @@
             <!-- Header -->
             <div th:insert="~{header}" class="mb-6"></div>
     <div style="text-align: center; padding-bottom: 20px;">
+        <label for="id_instId">Search By Institute</label>
         <select id="id_instId">
             <option value=""></option>
             <option th:each="i : ${instituteList}" th:value="${i.instituteId}" th:text="${i.name}">
@@ -76,7 +79,6 @@
             </td>
             <td>Edit |  <a th:href="@{'/enquiry-delete/'+${dto.enquiryId}}">Delete</a></td>
         </tr>
-
     </table>
 </div>
 <div class="form-popup" id="followupForm">
@@ -87,6 +89,8 @@
         <textarea name="followup" width="100%" style="width: 100%" rows="5" ></textarea>
         <button type="submit" class="btn">Save</button>
     </form>
+</div>
+    </div>
 </div>
 </body>
 </html>

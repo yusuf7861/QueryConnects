@@ -4,6 +4,7 @@
 <head>
     <title>Institute Form</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/main.css}" type="text/css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script th:src="@{/jquery-3.4.1.min.js}"></script>
@@ -21,6 +22,7 @@
             <div th:insert="~{header}" class="mb-6"></div>
 
     <form th:action="@{/save-institute}" th:object="${cmd}">
+        <input type="hidden" th:field="*{instituteId}"/> <!-- Hidden field for the institute ID for updating purpose -->
         <table border="1" width="90%" align="center" cellpadding="5">
             <tr>
                 <td class="fheading"  colspan="4">Institute Form</td>
@@ -61,6 +63,8 @@
 
         </table>
     </form>
+</div>
+    </div>
 </div>
 </body>
 </html>

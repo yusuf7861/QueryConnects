@@ -3,9 +3,8 @@
 <head>
   <title>Enquiry Source</title>
   <meta charset="UTF-8">
-  <link th:href="@{/main.css}" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script th:src="@{/jquery-3.4.1.min.js}"></script>
 </head>
 <body class="h-full">
 <!-- Wrapper for sidebar and main content -->
@@ -19,45 +18,64 @@
       <!-- Header -->
       <div th:insert="~{header}" class="mb-6"></div>
 
-  <form th:action="@{/save-enquiry-source}" th:object="${cmd}">
-    <table class="form-table" align="center">
-      <tr>
-        <td class="fheading" colspan="3">Enquiry Source</td>
-      </tr>
-      <tr>
-        <td class="label" align="right">Enter Source</td>
-        <td>
-          <input type="text" th:field="*{name}" />
-          <input type="hidden" th:field="*{enquirySourceId}" />
-          <span class="txt-small">Source for Enquiry like Google Search</span>
-        </td>
-        <td class="action-cell">
-          <button type="submit">Save</button>
-        </td>
-      </tr>
-    </table>
-  </form>
+      <div class="bg-gray-100 flex items-center justify-center">
+  <div class="w-full max-w-4xl bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="px-6 py-4">
+      <h2 class="text-center text-2xl font-bold text-gray-800 mb-6">Enquiry Source</h2>
+      <form th:action="@{/save-enquiry-source}" th:object="${cmd}" class="space-y-6">
+        <div>
+          <label for="inline-full-name" class="block text-sm font-medium text-gray-700 mb-1">
+            Enter Source
+          </label>
+          <input th:field="*{name}" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="inline-full-name" type="text" placeholder="Enter source name">
+        </div>
 
-  <br/>
+        <input type="hidden" th:field="*{enquirySourceId}">
 
-  <table class="data-table" align="center">
-    <tr>
-      <th>SR</th>
-      <th>ID</th>
-      <th>SOURCE</th>
-      <th>ACTION</th>
-    </tr>
-    <tr th:each="es, itr : ${enquirySourceList}">
-      <td th:text="${itr.count}">SR</td>
-      <td th:text="${es.enquirySourceId}">ID</td>
-      <td th:text="${es.name}">SOURCE</td>
-      <td>
-        <a th:href="@{'/enquiry-source-edit/' + ${es.enquirySourceId}}">Edit</a> |
-        <a th:href="@{'/enquiry-source-delete/' + ${es.enquirySourceId}}">Delete</a>
-      </td>
-    </tr>
-  </table>
+        <div class="flex items-center justify-end">
+          <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
+      <!-- Displaying the list of enquiry sources -->
+  <br/>
+      <div class="container mx-auto px-1 sm:px-6 lg:px-8 py-2">
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+          <table class="min-w- divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+            <tr>
+              <th colspan="2" class="px-6 py-3 text-left text-2xl font-bold text-gray-900">
+                Enquiry Source
+              </th>
+            </tr>
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SR</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SOURCE</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            <tr th:each="es,itr : ${enquirySourceList}" class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${itr.count}">SR</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${es.enquirySourceId}">ID</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" th:text="${es.name}">NAME</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <a th:href="@{/institute-edit/{id}(id=${es.enquirySourceId})}" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+                <a th:href="@{/institute-delete/{id}(id=${es.enquirySourceId})}" class="text-red-600 hover:text-red-900">Delete</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>
+  </div>
+</div>
 </body>
 </html>

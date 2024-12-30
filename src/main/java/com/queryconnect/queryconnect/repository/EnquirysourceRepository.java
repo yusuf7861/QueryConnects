@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EnquirysourceRepository extends JpaRepository<EnquirySource, Long> {
-    Object getEnquiryDTOList(Long instId);
 }

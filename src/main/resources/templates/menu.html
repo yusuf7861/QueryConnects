@@ -7,6 +7,9 @@
     </div>
 
     <nav class="mt-4">
+        <div class="px-2 py-1">
+            <p class="text-2xl font-bold">Welcome, <span th:text="${username}"></span></p>
+        </div>
         <div class="px-4 py-2">
             <h2 class="text-lg font-semibold mb-2 text-gray-400">Enquiry</h2>
             <a th:href="@{/}" class="block py-2 px-4 text-sm hover:bg-gray-700 rounded transition-colors duration-200">Add Enquiry</a>
@@ -23,6 +26,12 @@
             <h2 class="text-lg font-semibold mb-2 text-gray-400">Masters</h2>
             <a th:href="@{/sources}" class="block py-2 px-4 text-sm hover:bg-gray-700 rounded transition-colors duration-200">Enquiry Source</a>
             <a th:href="@{/courses}" class="block py-2 px-4 text-sm hover:bg-gray-700 rounded transition-colors duration-200">Courses</a>
+        </div>
+
+        <div class="px-4 py-2 mt-2">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="rounded-md bg-red-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2">Logout</button>
+            </form>
         </div>
     </nav>
 </div>
